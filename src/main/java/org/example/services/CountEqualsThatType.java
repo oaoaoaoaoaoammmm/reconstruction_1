@@ -13,7 +13,7 @@ public class CountEqualsThatType implements Command {
         System.out.println(
                 dragons.stream()
                         .map(this::mapToType)
-                        .filter(dragon -> dragon.equals(type))
+                        .filter(type::equals)
                         .count()
         );
     }

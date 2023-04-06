@@ -11,12 +11,7 @@ import org.example.entity.enums.DragonType;
 import org.example.exception.DataBaseException;
 import org.example.usecase.EntityManager;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +42,7 @@ public class DragonRepo implements EntityManager {
     private Connection getConnection() throws IOException, SQLException {
         Properties props = new Properties();
         log.log(Level.INFO, "Reading properties for database");
-        try (InputStream in = Files.newInputStream(Path.of("src\\main\\resources\\database.properties"))) {
+        try (InputStream in = new FileInputStream("src\\main\\resources\\database.properties")) {
             props.load(in);
         }
 

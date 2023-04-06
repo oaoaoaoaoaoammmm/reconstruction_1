@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.example.dto.Request;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 
 @Log
+@Builder
 @RequiredArgsConstructor
 public class Controller implements Start {
     private final Manage manager;

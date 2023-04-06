@@ -1,5 +1,6 @@
 package org.example.usecase;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.example.dto.Request;
@@ -10,6 +11,7 @@ import java.util.logging.Level;
 import java.util.zip.DataFormatException;
 
 @Log
+@Builder
 @RequiredArgsConstructor
 public class Manager implements Manage {
     private final EntityManager dragonRepo;
