@@ -7,13 +7,19 @@ import org.example.entity.enums.DragonType;
 import java.util.List;
 
 public interface Command {
-    default void execute() {}
-    default void execute(List<Dragon> dragons) {}
-    default void execute(List<Dragon> dragons, DragonType type) {}
+    default void execute() {
+        throw new UnsupportedOperationException();
+    }
+    default void execute(List<Dragon> dragons) {
+        throw new UnsupportedOperationException();
+    }
+    default void execute(List<Dragon> dragons, DragonType type) {
+        throw new UnsupportedOperationException();
+    }
     default Dragon execute(List<Dragon> dragons, Dragon dragon){
-        return dragon;
+        throw new UnsupportedOperationException();
     }
     default Dragon execute(long id, Dragon dragon) {
-        return dragon;
+        throw new UnsupportedOperationException();
     }
 }
