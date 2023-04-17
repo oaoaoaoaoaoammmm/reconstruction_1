@@ -1,7 +1,7 @@
 package org.example.usecase;
 
-import org.example.entity.Dragon;
-import org.example.entity.enums.DragonType;
+import org.example.domain.Dragon;
+import org.example.model.DragonType;
 
 import java.util.zip.DataFormatException;
 

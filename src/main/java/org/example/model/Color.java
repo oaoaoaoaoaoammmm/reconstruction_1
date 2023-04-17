@@ -1,8 +1,8 @@
-package org.example.entity.enums;
+package org.example.model;
 
 public enum Color {
     GREEN,
     BLACK,
     ORANGE,
-    BROWN;
+    BROWN
 }

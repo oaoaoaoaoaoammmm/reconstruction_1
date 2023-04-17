@@ -1,7 +1,7 @@
-package org.example.entity.enums;
+package org.example.model;
 
 public enum DragonCharacter {
     CUNNING,
     EVIL,
-    CHAOTIC_EVIL;
+    CHAOTIC_EVIL
 }

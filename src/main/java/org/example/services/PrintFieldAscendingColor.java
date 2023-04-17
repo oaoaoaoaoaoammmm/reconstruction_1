@@ -1,7 +1,7 @@
 package org.example.services;
 
-import org.example.entity.Dragon;
-import org.example.entity.enums.Color;
+import org.example.domain.Dragon;
+import org.example.model.Color;
 import org.example.usecase.Command;
 
 import java.util.List;

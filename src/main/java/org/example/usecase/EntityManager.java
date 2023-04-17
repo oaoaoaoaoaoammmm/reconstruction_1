@@ -1,6 +1,6 @@
 package org.example.usecase;
 
-import org.example.entity.Dragon;
+import org.example.domain.Dragon;
 import org.example.exception.DataBaseException;
 
 import java.util.List;

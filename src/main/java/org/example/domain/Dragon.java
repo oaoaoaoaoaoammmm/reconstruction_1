@@ -1,11 +1,11 @@
-package org.example.entity;
+package org.example.domain;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
-import org.example.entity.enums.Color;
-import org.example.entity.enums.DragonCharacter;
-import org.example.entity.enums.DragonType;
+import org.example.model.Color;
+import org.example.model.DragonCharacter;
+import org.example.model.DragonType;
 
 @Data
 @Builder
@@ -17,16 +17,15 @@ public class Dragon implements Comparable<Dragon> {
     private Coordinates coordinates; //Поле не может быть null
     @NonNull
     private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    @NonNull
     private long age; //Значение поля должно быть больше 0
     @NonNull
     private Color color; //Поле не может быть null
     @NonNull
-    private DragonType type; //Поле может быть null
+    private Person killer; //Поле не может быть null
     @NonNull
-    private DragonCharacter character; //Поле может быть null
+    private DragonType type; //Поле не может быть null
     @NonNull
-    private Person killer; //Поле может быть null
+    private DragonCharacter character; //Поле не может быть null
 
     @Override
     public int compareTo(Dragon o) {

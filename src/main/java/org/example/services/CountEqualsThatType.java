@@ -1,7 +1,7 @@
 package org.example.services;
 
-import org.example.entity.Dragon;
-import org.example.entity.enums.DragonType;
+import org.example.domain.Dragon;
+import org.example.model.DragonType;
 import org.example.usecase.Command;
 
 import java.util.List;

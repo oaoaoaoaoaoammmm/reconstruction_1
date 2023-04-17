@@ -11,7 +11,6 @@ public class Exit implements Command {
     @Override
     public void execute() {
         log.log(Level.INFO, "Shutdown...");
-        System.out.println("Shutdown...");
         System.exit(0);
     }
 }

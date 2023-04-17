@@ -1,9 +1,7 @@
-package org.example.controller;
+package org.example;
 
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import org.example.dto.Request;
 import org.example.usecase.Manage;
 import org.example.usecase.Start;
 
@@ -11,9 +9,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 
 @Log
-@Builder
 @RequiredArgsConstructor
-public class Controller implements Start {
+public class EntryPoint implements Start {
     private final Manage manager;
     @Override
     public void start() {
@@ -22,8 +19,8 @@ public class Controller implements Start {
         while (true) {
             try {
 
-                Request req = new Request(scanner.nextLine());
-                log.log(Level.INFO, "Request accepted: " + req.command());
+                String req = scanner.nextLine();
+                log.log(Level.INFO, "Request accepted: " + req);
                 manager.manage(req);
 
             } catch (Exception ex) {

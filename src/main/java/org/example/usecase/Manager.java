@@ -3,7 +3,6 @@ package org.example.usecase;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import org.example.dto.Request;
 import org.example.exception.DataBaseException;
 import org.example.exception.ManageException;
 
@@ -20,10 +19,11 @@ public class Manager implements Manage {
             exit, help, info, printFieldAscendingColor, reorder, show, update;
 
     @Override
-    public void manage(Request req) throws DataFormatException, ManageException, DataBaseException {
-        log.log(Level.INFO, "Manage request: " + req.command());
+    public void manage(String req) throws DataFormatException, ManageException, DataBaseException {
+        log.log(Level.INFO, "Manage request: " + req);
 
-        switch (req.command()) {
+
+        switch (req) {
             case "help" -> help.execute();
             case "exit" -> exit.execute();
             case "info" -> info.execute(dragonRepo.findAll());
@@ -45,6 +45,6 @@ public class Manager implements Manage {
 
             default -> throw new ManageException("Unknown command");
         }
-        log.log(Level.INFO, "Request " + req.command() + " completed");
+        log.log(Level.INFO, "Request " + req + " completed");
     }
 }

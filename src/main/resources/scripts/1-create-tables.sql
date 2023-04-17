@@ -5,8 +5,8 @@ create table dragon
     creation_date    date   not null,
     age              bigint not null check (age > 0),
     color            text   not null,
-    type             text   not null,
-    dragon_character text   not null
+    type             text,
+    dragon_character text
 );
 
 create table person

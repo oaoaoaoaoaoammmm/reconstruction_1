@@ -1,6 +1,6 @@
 package org.example.services;
 
-import org.example.entity.Dragon;
+import org.example.domain.Dragon;
 import org.example.usecase.Command;
 
 import java.util.List;
@@ -12,11 +12,12 @@ public class AddIfMax implements Command {
     @Override
     public Dragon execute(List<Dragon> dragons, Dragon dragon) {
 
-        if (dragon.getAge() > dragons.stream()
+        long max = dragons.stream()
                 .mapToLong(Dragon::getAge)
                 .max()
-                .orElseThrow(NoSuchElementException::new)) {
-            return dragon;
-        } else throw new RuntimeException("Element is lower");
+                .orElseThrow(NoSuchElementException::new);
+
+        if (dragon.getAge() > max) return dragon;
+        else throw new RuntimeException("Element is lower");
     }
 }

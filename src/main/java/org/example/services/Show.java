@@ -1,6 +1,6 @@
 package org.example.services;
 
-import org.example.entity.Dragon;
+import org.example.domain.Dragon;
 import org.example.usecase.Command;
 
 import java.util.List;
