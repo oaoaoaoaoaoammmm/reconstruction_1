@@ -1,14 +1,16 @@
 package org.example.services;
 
+import lombok.AllArgsConstructor;
 import org.example.domain.Dragon;
-import org.example.usecase.Command;
 
 import java.util.List;
 
-public class AverageOfAge implements Command {
+@AllArgsConstructor
+public class AverageOfAge {
 
-    @Override
-    public void execute(List<Dragon> dragons) {
+    private final List<Dragon> dragons;
+
+    public void execute() {
         dragons.stream()
                 .mapToLong(Dragon::getAge)
                 .average()

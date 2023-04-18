@@ -1,14 +1,15 @@
 package org.example.services;
 
+import lombok.AllArgsConstructor;
 import org.example.domain.Dragon;
-import org.example.usecase.Command;
 
 import java.util.List;
 
-public class Info implements Command {
+@AllArgsConstructor
+public class Info {
+    private final List<Dragon> dragons;
 
-    @Override
-    public void execute(List<Dragon> dragons) {
+    public void execute() {
         System.out.println("Collection's size - " + dragons.size());
     }
 }

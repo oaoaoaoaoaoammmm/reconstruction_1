@@ -1,15 +1,16 @@
 package org.example.services;
 
+import lombok.AllArgsConstructor;
 import org.example.domain.Dragon;
 import org.example.model.Color;
-import org.example.usecase.Command;
 
 import java.util.List;
 
-public class PrintFieldAscendingColor implements Command {
+@AllArgsConstructor
+public class PrintFieldAscendingColor {
+    private final List<Dragon> dragons;
 
-    @Override
-    public void execute(List<Dragon> dragons) {
+    public void execute() {
         dragons.stream()
                 .map(this::mapToColor)
                 .sorted()

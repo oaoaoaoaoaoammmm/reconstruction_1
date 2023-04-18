@@ -1,15 +1,16 @@
 package org.example.services;
 
+import lombok.AllArgsConstructor;
 import org.example.domain.Dragon;
-import org.example.usecase.Command;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class Reorder implements Command {
+@AllArgsConstructor
+public class Reorder {
+    private final List<Dragon> dragons;
 
-    @Override
-    public void execute(List<Dragon> dragons) {
+    public void execute() {
         dragons.stream()
                 .sorted(Comparator.comparing(Dragon::getAge))
                 .forEach(System.out::println);

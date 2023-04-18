@@ -1,14 +1,15 @@
 package org.example.services;
 
+import lombok.AllArgsConstructor;
 import org.example.domain.Dragon;
-import org.example.usecase.Command;
 
 import java.util.List;
 
-public class Show implements Command {
+@AllArgsConstructor
+public class Show {
+    private final List<Dragon> dragons;
 
-    @Override
-    public void execute(List<Dragon> dragons) {
+    public void execute() {
         dragons.forEach(System.out::println);
     }
 }

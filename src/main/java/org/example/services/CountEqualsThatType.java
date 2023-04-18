@@ -1,15 +1,17 @@
 package org.example.services;
 
+import lombok.AllArgsConstructor;
 import org.example.domain.Dragon;
 import org.example.model.DragonType;
-import org.example.usecase.Command;
 
 import java.util.List;
 
-public class CountEqualsThatType implements Command {
+@AllArgsConstructor
+public class CountEqualsThatType {
+    private final List<Dragon> dragons;
+    private final DragonType type;
 
-    @Override
-    public void execute(List<Dragon> dragons, DragonType type) {
+    public void execute() {
         System.out.println(
                 dragons.stream()
                         .map(this::mapToType)

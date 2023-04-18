@@ -20,13 +20,17 @@ import java.util.logging.Level;
 
 @Log
 public class DragonRepo implements EntityManager {
+    private DBPoolCache dbPoolCache;
     private Connection conn;
 
-    {
-        try {
-            conn = getConnection();
-            log.log(Level.INFO, "Database connection completed");
+    public DragonRepo() {
+        initDB();
+    }
 
+    private void initDB() {
+        try {
+            dbPoolCache = createPollConn();
+            conn = dbPoolCache.getConnection();
             if (existsValues() < 1) {
                 insertDefaultValues();
                 log.log(Level.INFO, "Default values inserted");
@@ -36,24 +40,26 @@ public class DragonRepo implements EntityManager {
             log.log(Level.WARNING, "Database setting failed");
             System.out.println("Setting to database is failed\nShutdown...");
             System.exit(1);
+        } finally {
+            try {
+                dbPoolCache.putConnection(conn);
+            } catch (SQLException ignored) {}
         }
     }
 
-    private Connection getConnection() throws IOException, SQLException {
+    private DBPoolCache createPollConn() throws IOException {
         Properties props = new Properties();
         log.log(Level.INFO, "Reading properties for database");
-
         try (InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("database.properties")) {
             props.load(in);
         }
 
+        String driver = props.getProperty("driver");
         String url = props.getProperty("url");
         String username = props.getProperty("username");
         String password = props.getProperty("password");
 
-        log.log(Level.INFO, "Connecting to the database");
-
-        return DriverManager.getConnection(url, username, password);
+        return new DBPoolCache(driver, url, username, password);
     }
 
     private int existsValues() throws SQLException {
@@ -72,16 +78,14 @@ public class DragonRepo implements EntityManager {
         try (Reader reader = new FileReader("src\\main\\resources\\scripts\\2-insert-default-values.sql")) {
             scriptRunner.runScript(reader);
         }
-
     }
 
     @Override
     public List<Dragon> findAll() throws DataBaseException {
         List<Dragon> dragons;
-
         try {
+            conn = dbPoolCache.getConnection();
             PreparedStatement statement = createFindAllStatement();
-
             log.log(Level.INFO, "Request all dragons");
 
             ResultSet results = statement.executeQuery();
@@ -91,6 +95,10 @@ public class DragonRepo implements EntityManager {
         } catch (SQLException ex) {
             log.log(Level.WARNING, "Database query denied");
             throw new DataBaseException("Database query denied");
+        } finally {
+            try {
+                dbPoolCache.putConnection(conn);
+            } catch (SQLException ignored) {}
         }
     }
 
@@ -141,6 +149,7 @@ public class DragonRepo implements EntityManager {
     @Override
     public void save(Dragon dragon) throws DataBaseException {
         try {
+            conn = dbPoolCache.getConnection();
             PreparedStatement statement = createSaveDragonStatement(dragon);
             log.log(Level.INFO, "Request to save dragon");
             statement.executeUpdate();
@@ -156,6 +165,10 @@ public class DragonRepo implements EntityManager {
         } catch (SQLException ex) {
             log.log(Level.WARNING, "Database query denied");
             throw new DataBaseException("Database query denied");
+        } finally {
+            try {
+                dbPoolCache.putConnection(conn);
+            } catch (SQLException ignored) {}
         }
     }
 
@@ -204,6 +217,7 @@ public class DragonRepo implements EntityManager {
     @Override
     public void update(Dragon dragon) throws DataBaseException {
         try {
+            conn = dbPoolCache.getConnection();
             PreparedStatement statement = createUpdateStatement(dragon);
             log.log(Level.INFO, "Request to update dragon");
             statement.executeUpdate();
@@ -211,6 +225,10 @@ public class DragonRepo implements EntityManager {
         } catch (SQLException ex) {
             log.log(Level.WARNING, "Database query denied");
             throw new DataBaseException("Database query denied");
+        } finally {
+            try {
+                dbPoolCache.putConnection(conn);
+            } catch (SQLException ignored) {}
         }
     }
 
@@ -245,6 +263,7 @@ public class DragonRepo implements EntityManager {
     @Override
     public void deleteById(long id) throws DataBaseException {
         try {
+            conn = dbPoolCache.getConnection();
             PreparedStatement statement = conn.prepareStatement("""
                     delete from dragon
                     where dragon.id = ?;
@@ -256,12 +275,17 @@ public class DragonRepo implements EntityManager {
         } catch (SQLException ex) {
             log.log(Level.WARNING, "Database query denied");
             throw new DataBaseException("Database query denied");
+        } finally {
+            try {
+                dbPoolCache.putConnection(conn);
+            } catch (SQLException ignored) {}
         }
     }
 
     @Override
     public void deleteLast() throws DataBaseException {
         try {
+            conn = dbPoolCache.getConnection();
             PreparedStatement statement = conn.prepareStatement("""
                     select max(id) from dragon;
                     """);
@@ -282,6 +306,10 @@ public class DragonRepo implements EntityManager {
         } catch (SQLException ex) {
             log.log(Level.WARNING, "Database query denied");
             throw new DataBaseException("Database query denied");
+        } finally {
+            try {
+                dbPoolCache.putConnection(conn);
+            } catch (SQLException ignored) {}
         }
     }
 
@@ -289,6 +317,7 @@ public class DragonRepo implements EntityManager {
     @Override
     public void deleteAll() throws DataBaseException {
         try {
+            conn = dbPoolCache.getConnection();
             PreparedStatement statement = conn.prepareStatement("""
                     delete from dragon;
                     """);
@@ -298,6 +327,10 @@ public class DragonRepo implements EntityManager {
         } catch (SQLException ex) {
             log.log(Level.WARNING, "Database query denied");
             throw new DataBaseException("Database query denied");
+        } finally {
+            try {
+                dbPoolCache.putConnection(conn);
+            } catch (SQLException ignored) {}
         }
     }
 }

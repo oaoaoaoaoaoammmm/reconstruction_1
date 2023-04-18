@@ -1,16 +1,19 @@
 package org.example.services;
 
+import lombok.AllArgsConstructor;
 import org.example.domain.Dragon;
-import org.example.usecase.Command;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 
-public class AddIfMax implements Command {
+@AllArgsConstructor
+public class AddIfMax {
 
-    @Override
-    public Dragon execute(List<Dragon> dragons, Dragon dragon) {
+    private final List<Dragon> dragons;
+    private final Dragon dragon;
+
+    public Dragon execute() {
 
         long max = dragons.stream()
                 .mapToLong(Dragon::getAge)

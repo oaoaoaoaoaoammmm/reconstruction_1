@@ -1,9 +1,7 @@
 package org.example.services;
 
-import org.example.usecase.Command;
+public class Help {
 
-public class Help implements Command {
-    @Override
     public void execute() {
         System.out.println("""
                 help : show all commands
