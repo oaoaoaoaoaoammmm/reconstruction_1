@@ -1,9 +1,9 @@
 package org.example.services;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.domain.Dragon;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Update {
     private final Dragon dragon;
     private final long id;

@@ -1,12 +1,12 @@
 package org.example.services;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.domain.Dragon;
 import org.example.model.Color;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PrintFieldAscendingColor {
     private final List<Dragon> dragons;
 

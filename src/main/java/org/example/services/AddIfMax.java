@@ -1,13 +1,12 @@
 package org.example.services;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.domain.Dragon;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
-
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AddIfMax {
 
     private final List<Dragon> dragons;
